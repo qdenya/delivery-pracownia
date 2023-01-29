@@ -568,6 +568,15 @@ button {
   line-height: 23px;
 }
 
+.menu-back {
+  padding: 12px 18px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  background: rgb(141, 218, 141);
+  color: rgb(47, 47, 47);
+  margin-right: 20px;
+}
 @media (max-width: 1366px) {
   .container {
       max-width: 960px;

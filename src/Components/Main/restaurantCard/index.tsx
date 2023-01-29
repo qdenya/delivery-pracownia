@@ -1,14 +1,16 @@
 
 type card = {
     // eslint-disable-next-line
+    id: number;
     itemInfo: any;
+    changeRestaurant: any;
 }
 
-const Card = ({ itemInfo }: card) => {
+const Card = ({ id, itemInfo, changeRestaurant }: card) => {
 
     const { image, name, stars, price, kitchen, time_of_delivery } = itemInfo;
     return (
-        <a className="card card-restaurant" href="/#">
+        <a className="card card-restaurant" href="/#" onClick={() => {changeRestaurant(id, name, kitchen, price, stars)}}>
             <img src={"/" + image} alt="rest" className="card-image"/>
             <div className="card-text">
                 <div className="card-heading">

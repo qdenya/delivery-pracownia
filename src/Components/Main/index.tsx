@@ -11,6 +11,7 @@ import axios from "axios";
 import apiConfig from '../../Store/config';
 
 import Card from "./restaurantCard";
+import DishCard from "./dishCard";
 
 interface RestaurantsTypes {
     map: any;
@@ -22,9 +23,22 @@ interface RestaurantsTypes {
     products?: any;
 }
 
-const Main =  () => {
+const Main = () => {
 
-    const [restaurants, setRestaurants] = useState<RestaurantsTypes>();
+    const [restaurants, setRestaurants] = useState<any[]>([])
+
+    const [selectRestaurant, setSelectRestaurant] = useState({
+        id: -1,
+        title: "",
+        kitchen: "",
+        price: 0,
+        stars: ''
+    });
+
+    const [cart, setCart] = useState({
+        items: [{id: '', count: 0, price: 0, total: 0}],
+        total: 0
+    });
 
     useEffect(() => {
         var config = {
@@ -36,11 +50,118 @@ const Main =  () => {
         axios(config)
             .then(function (response) {
                 setRestaurants(response.data);
+                console.log(restaurants[1]['products']);
+                
             })
             .catch(function (error) {
                 console.log(error);
             });
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        let tmpPrice = 0;
+        let tmpCount = 0;
+
+        for(let i=0; i<cart.items.length; i++) {
+            tmpCount = tmpCount + cart.items[i].count;
+            tmpPrice = tmpPrice + cart.items[i].total;
+        }
+
+        console.log(cart);
+        
+        console.log(tmpCount, tmpPrice);
+        
+
+    }, [cart]);
+
+    const changeRestaurant = (id: number, title: string, kitchen: string, price: number, stars: string) => {
+        setSelectRestaurant({
+            id: id,
+            title: title,
+            kitchen: kitchen,
+            price: price/100,
+            stars: stars
+        });
+    }
+
+    const addToCart = (id: string, num: number, price: number) => {
+        const item = cart.items.find(item => item.id === id);
+
+        if(item) {
+            setCart({
+                ...cart,
+                items: cart.items.map((product) => {
+                    if(product.id === id) {
+                        return { ...product, count: product.count+1, total: product.price*(product.count+1)}
+                    } else {
+                        return product;
+                    }
+                })
+            });
+        } else {
+            setCart({
+                ...cart,
+                items: [...cart.items, {id: id, count: 1, price: price, total: price}]
+            });
+        }
+
+    
+        
+    }
+
+    const removeFromCart = (id: string) => {
+        const item = cart.items.find(item => item.id === id);
+
+        if(item) {
+            setCart({
+                ...cart,
+                items: cart.items.filter((product) => {
+                    if(product.id !== id) {
+                        return { ...product, count: product.count+1 }
+                    } 
+                })
+            });
+        } 
+        
+    }
+
+    const selectMenu = () => {
+        if(selectRestaurant.id >= 0) {
+            return(
+                <section className="menu">
+                    <div className="section-heading">
+                        <button className="menu-back" onClick={() => {
+                            setSelectRestaurant({
+                                ...selectRestaurant,
+                                id: -1
+                            });}}>Powrót do listy restauracji</button>
+                        <h2 className="section-title restaurant-title">{selectRestaurant.title}</h2>
+                        <div className="card-info">
+                            <div className="rating">
+                                {selectRestaurant.stars}
+                            </div>
+                            <div className="price">Od {selectRestaurant.price} zł</div>
+                            <div className="category">{selectRestaurant.kitchen}</div>
+                        </div>
+                    </div>
+                    <div className="cards cards-menu">
+                        {restaurants[selectRestaurant.id]['products']?.map((item: any) => {
+                            return <DishCard 
+                                        key={item.id}
+                                        itemInfo={item}
+                                        addBtn={addToCart}
+                                    />
+                        })}
+                    </div>
+                </section>
+            );
+        }
+        return(
+            <div className="menu"></div>
+        );
+    }
+
+    let i = 0; 
     
     return (
         <main className="main">
@@ -83,7 +204,7 @@ const Main =  () => {
                         </SwiperSlide>
                     </Swiper>
                 </section>
-                <section className="restaurants">
+                <section className="restaurants" style={selectRestaurant.id < 0 ? {display: "block"} : {display: 'none'}}>
                     <div className="section-heading">
                         <h2 className="section-title">Restauracje</h2>
                         <label className="search">
@@ -91,26 +212,17 @@ const Main =  () => {
                         </label>
                     </div>
                     <div className="cards cards-restaurants">
-                        {restaurants?.map((item: any) => {
-                            return <Card itemInfo={item}/>
-                        })}
+                        {restaurants ? restaurants.map((item: any) => {
+                            return <Card 
+                                        key={item.id}
+                                        id={item.id}
+                                        itemInfo={item}
+                                        changeRestaurant={changeRestaurant}
+                                    />
+                        }) : "...loading..."}
                     </div>
                 </section>
-                <section className="menu hide">
-                    <div className="section-heading">
-                        <h2 className="section-title restaurant-title">Pizza Plus</h2>
-                        <div className="card-info">
-                            <div className="rating">
-                                4.5
-                            </div>
-                            <div className="price">Od 25,00 zł</div>
-                            <div className="category">Pizza</div>
-                        </div>
-                    </div>
-                    <div className="cards cards-menu">
-                        
-                    </div>
-                </section>
+                {selectMenu()}
             </div>
         </main>
     );
