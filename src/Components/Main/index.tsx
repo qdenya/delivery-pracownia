@@ -7,7 +7,9 @@ import "swiper/css/navigation";
 import { Pagination, Navigation, Autoplay } from "swiper";
 import { useEffect, useState } from "react";
 import axios from "axios";
+
 import apiConfig from '../../Store/config';
+
 import Card from "./restaurantCard";
 
 interface RestaurantsTypes {
@@ -18,7 +20,8 @@ interface RestaurantsTypes {
     price?: number;
     time?: string;
     products?: any;
-  }
+}
+
 const Main =  () => {
 
     const [restaurants, setRestaurants] = useState<RestaurantsTypes>();
@@ -39,9 +42,6 @@ const Main =  () => {
             });
     }, [])
     
-
-
-    
     return (
         <main className="main">
             <div className="container">
@@ -58,36 +58,36 @@ const Main =  () => {
                         }}
                     >
                         <SwiperSlide className="promo pizza swiper-slide">
-                            <h1 className="promo-title">Онлайн-сервис <br />доставки еды на дом</h1>
+                            <h1 className="promo-title">Online-serwis <br />jedzenia na dowóz</h1>
                             <p className="promo-text">
-                                Блюда из любимого ресторана привезет курьер в перчатках, маске и с антисептиком
+                                Dania z ulubionej restauracji dostarczy kurier
                             </p>
                         </SwiperSlide>
                         <SwiperSlide className="promo kebab swiper-slide">
-                            <h1 className="promo-title">Шашлыки на майские <br /> со скидкой 35%</h1>
+                            <h1 className="promo-title">Kebab <br />z rabatem 35%</h1>
                             <p className="promo-text">
-                                Закажите шашлыки в любом ресторане до 10 мая и получите скидку по промокоду OMAGAD
+                                Zamów kebab w jednej z restauracji do 10 lutego z rabatem po promokodu OMAGAD
                             </p>
                         </SwiperSlide>
                         <SwiperSlide className="promo vegetables swiper-slide">
-                            <h1 className="promo-title">Скидка 20% на всю еду <br /> по промокоду LOVE.JS</h1>
+                            <h1 className="promo-title">Rabat 20% <br /> po promokodu LOVE.JS</h1>
                             <p className="promo-text">
-                                Блюдо из ресторана привезут вместе с двумя подарочными книгами по фронтенду
+                                Danie z restauracji prywiezie kurier z książką po frontendu
                             </p>
                         </SwiperSlide>
                         <SwiperSlide className="promo sushi swiper-slide">
-                            <h1 className="promo-title">Сеты со скидкой до 30% <br /> в ресторанах</h1>
+                            <h1 className="promo-title">Zestawy z rabatem 30% <br /> w restauracjach</h1>
                             <p className="promo-text">
-                                Скидки на сеты до 30 мая по промокоду DADADA
+                                Rabaty na zestawy do 10 lutego z promokodem DADADA
                             </p>
                         </SwiperSlide>
                     </Swiper>
                 </section>
                 <section className="restaurants">
                     <div className="section-heading">
-                        <h2 className="section-title">Рестораны</h2>
+                        <h2 className="section-title">Restauracje</h2>
                         <label className="search">
-                            <input type="text" className="input input-search" placeholder="Поиск блюд и ресторанов"/>
+                            <input type="text" className="input input-search" placeholder="Szukaj dania i restauracje"/>
                         </label>
                     </div>
                     <div className="cards cards-restaurants">
@@ -98,13 +98,13 @@ const Main =  () => {
                 </section>
                 <section className="menu hide">
                     <div className="section-heading">
-                        <h2 className="section-title restaurant-title">Пицца Плюс</h2>
+                        <h2 className="section-title restaurant-title">Pizza Plus</h2>
                         <div className="card-info">
                             <div className="rating">
                                 4.5
                             </div>
-                            <div className="price">От 900 ₽</div>
-                            <div className="category">Пицца</div>
+                            <div className="price">Od 25,00 zł</div>
+                            <div className="category">Pizza</div>
                         </div>
                     </div>
                     <div className="cards cards-menu">

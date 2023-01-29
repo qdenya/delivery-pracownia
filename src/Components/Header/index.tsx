@@ -8,20 +8,20 @@ const Header = () => {
                     <img src={logo} alt="Logo"/>
                 </a>
                 <label className="address">
-                    <input type="text" className="input input-address" placeholder="Адрес доставки"/>
+                    <input type="text" className="input input-address" placeholder="Adres dostawy"/>
                 </label>
                 <div className="buttons">
                     <span className="user-name"></span>
                     <button className="button button-primary button-auth">
                         <span className="button-auth-svg"></span>
-                        <span className="button-text">Войти</span>
+                        <span className="button-text">Zaloguj się</span>
                     </button>
                     <button className="button button-cart" id="cart-button">
                         <span className="button-cart-svg"></span>
-                        <span className="button-text">Корзина</span>
+                        <span className="button-text">Koszyk</span>
                     </button>
                     <button className="button button-primary button-out">
-                        <span className="button-text">Выйти</span>
+                        <span className="button-text">Wyloguj się</span>
                         <span className="button-out-svg"></span>
                     </button>
                 </div>

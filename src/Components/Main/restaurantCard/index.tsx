@@ -13,11 +13,11 @@ const Card = ({ itemInfo }: card) => {
             <div className="card-text">
                 <div className="card-heading">
                     <h3 className="card-title">{name}</h3>
-                    <span className="card-tag tag">{time_of_delivery} мин</span>
+                    <span className="card-tag tag">{time_of_delivery} min</span>
                 </div>
                 <div className="card-info">
                     <div className="rating">{stars}</div>
-                    <div className="price">От {price} zł</div>
+                    <div className="price">Od {price/100} zł</div>
                     <div className="category">{kitchen}</div>
                 </div>
             </div>

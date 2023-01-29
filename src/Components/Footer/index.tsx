@@ -5,10 +5,10 @@ const Footer = () => {
                 <div className="footer-block">
                     <img src="img/icon/logo.svg" alt="logo" className="logo footer-logo"/>
                     <nav className="footer-nav">
-                        <a href="/#" className="footer-link">Ресторанам </a>
-                        <a href="/#" className="footer-link">Курьерам</a>
-                        <a href="/#" className="footer-link">Пресс-центр</a>
-                        <a href="/#" className="footer-link">Контакты</a>
+                        <a href="/#" className="footer-link">Restauracjom </a>
+                        <a href="/#" className="footer-link">Kurierom</a>
+                        <a href="/#" className="footer-link">Press-center</a>
+                        <a href="/#" className="footer-link">Kontakty</a>
                     </nav>
                     <div className="social-links">
                         <a href="/#" className="social-link"><img src="img/social/instagram.svg" alt="instagram"/></a>
